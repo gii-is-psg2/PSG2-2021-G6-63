@@ -106,9 +106,12 @@ public class Cause extends BaseEntity{
 	public void addDonation(Donation donation) {
 		getDonationsInternal().add(donation);
 		donation.setCause(this);
+//		Double totalDonaciones = this.getTotalDonations();
+//		Double target = this.getBudgetTarget();
+//		if(totalDonaciones >= target) {
+//			this.setIsClosed(true);
+//		}
 		
 	}
-	
-	
 
 }

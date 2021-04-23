@@ -15,7 +15,11 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -29,6 +33,7 @@ import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.BookingRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.samples.petclinic.service.exceptions.ConcurrentBookingsException;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,8 +77,36 @@ public class PetService {
 	}
 	
     @Transactional
-	public void saveBooking(@Valid Booking booking) throws DataAccessException {
-		bookingRepository.save(booking);
+	public void saveBooking(@Valid Booking booking) throws DataAccessException, ConcurrentBookingsException {
+    	LocalDate checkIn = booking.getCheckIn();
+    	LocalDate checkOut = booking.getCheckOut();
+    	
+    	Pet pet = petRepository.findById(booking.getPet().getId()).get();
+    	List<Booking> listaBookings = pet.getBookings().stream().filter(x -> x.getCheckIn().isAfter(LocalDate.now())).collect(Collectors.toList());
+    	for(Booking b:listaBookings) {
+    		LocalDate in = b.getCheckIn();
+    		LocalDate out = b.getCheckOut();
+    		
+    		//in y out están dentro del rango de la reserva
+    		if((checkIn.isAfter(in) && checkIn.isBefore(out)) ||		//  in  [CIN    out  
+    			checkOut.isAfter(in) && checkOut.isBefore(out) ||		//	in	COUT]	out
+    			checkIn.isBefore(in) && checkOut.isAfter(out)||			//	[CIN  in	out	COUT]    			
+    			checkIn.isEqual(in) ||
+    			checkIn.isEqual(out) ||
+    			checkOut.isEqual(in) ||
+    			checkOut.isEqual(out)) {
+    			
+    			throw new ConcurrentBookingsException();
+    		
+    		} else {
+    			bookingRepository.save(booking);
+    		}
+    		
+    		
+    		
+    	}
+    	
+    		
 	}
 
 	@Transactional(readOnly = true)
