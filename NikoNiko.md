@@ -2,7 +2,7 @@
 
 ### Example
 
-| Day           | J. A. Parejo  |
+| Day           | name          |
 | ------------- | ------------- |
 | Day 1         |    :smiley: (Meaning that I am learning, I like the work and I think I can do it without problems, but with some effort) |
 | Day 2         |    - (Meaning that I did no work regarding the PSG2 project)           |
@@ -21,5 +21,5 @@
 | Day 20/04     |               |:neutral_face: |                |     :neutral_face:           |:neutral_face:  |
 | Day 21/04     |  :smiley:            |:smiley:       |     :smiley:            |     :smiley:            |:worried:       |
 | Day 22/04     |  :neutral_face:           |          | :neutral_face:               |              |     |
-| Day 23/04     |  :smiley:            |:smiley:       |   :smiley:         |       :smiley:          |       |
+| Day 23/04     |  :smiley:            |:smiley:       |   :smiley:         |       :smiley:          |       :smiley: |
 ...
