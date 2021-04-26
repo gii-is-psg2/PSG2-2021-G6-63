@@ -79,6 +79,11 @@ public class OwnerController {
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
+	
+	@InitBinder("adoption")
+	public void initAdoptionBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new AdoptionValidator());
+	}
 
 	@GetMapping(value = "/owners/new")
 	public String initCreationForm(Map<String, Object> model) {
@@ -104,6 +109,8 @@ public class OwnerController {
 		model.put("owner", new Owner());
 		return "owners/findOwners";
 	}
+	
+	
 
 	@GetMapping(value = "/owners")
 	public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
@@ -187,7 +194,6 @@ public class OwnerController {
 		Owner adoptant = ownerService.findOwnerByUsername(principal.getName());
 		Pet pet = petService.findPetById(petId);
 		Owner originalOwner = petService.findPetById(petId).getOwner();
-		Owner owner = new Owner();
 		model.put("pet", pet);
 		model.put("originalOwner", originalOwner);
 		model.put("adoptant", adoptant);
@@ -196,7 +202,10 @@ public class OwnerController {
 	}
 
 	@PostMapping("pets/{petId}/adopt")
-	public String processAdoptForm(@Valid Adoption adoption, final ModelMap model) {
+	public String processAdoptForm(@Valid Adoption adoption, BindingResult binding, final ModelMap model) {
+		if (binding.hasErrors()) {
+			return ADOPT_FORM;
+		}
 		Owner originalOwner = adoption.getOriginalOwner();
 		Owner adoptant = adoption.getAdoptant();
 		if (adoptant.equals(originalOwner)) {
@@ -211,6 +220,8 @@ public class OwnerController {
 		} else {
 
 			adoption.getPet().setAdoption(adoption);
+			adoption.getAdoptant().setAdoption(adoption);
+			adoption.getOriginalOwner().setAdoption(adoption);
 
 			petService.saveAdoption(adoption);
 			model.addAttribute("message", "El proceso de adopcion de la mascota ha comenzado!");

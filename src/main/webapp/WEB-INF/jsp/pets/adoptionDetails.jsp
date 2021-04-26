@@ -13,9 +13,42 @@
 	<h2>
 		<fmt:message key="adoptionDetails" />
 	</h2>
+	
+		<fmt:message key="adoptant" />
+		
+		
+	<div>
+	
+		<table class="table table-striped">
+		<tr>
+			<th><fmt:message key="name" /></th>
+			<td><b><c:out value="${adoption.adoptant.firstName} ${adoption.adoptant.lastName}" /></b></td>
+		</tr>
+		<tr>
+			<th><fmt:message key="adress" /></th>
+			<td><c:out value="${adoption.adoptant.address}" /></td>
+		</tr>
+		<tr>
+			<th><fmt:message key="city" /></th>
+			<td><c:out value="${adoption.adoptant.city}" /></td>
+		</tr>
+		<tr>
+			<th><fmt:message key="phone" /></th>
+			<td><c:out value="${adoption.adoptant.telephone}" /></td>
+		</tr>
+		
+		<tr>
+			<th><fmt:message key="username" /></th>
+			<td><c:out value="${adoption.adoptant.user.username}" /></td>
+		</tr>
+	</table>
+		
+	</div>
+	
 	<div>
 		<c:out value="${adoption.description}" />
 	</div>
+	
 	<form:form modelAttribute="adoption" class="form-horizontal">
 		<input type="hidden" name="description" value="${adoption.description}" />
 		<input type="hidden" name="originalOwner" value="${adoption.originalOwner.id}" />
