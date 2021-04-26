@@ -22,4 +22,7 @@
 | Day 21/04     |  :smiley:            |:smiley:       |     :smiley:            |     :smiley:            |:worried:       |
 | Day 22/04     |  :neutral_face:           |          | :neutral_face:               |              |     |
 | Day 23/04     |  :smiley:            |:smiley:       |   :smiley:         |       :smiley:          |       :smiley: |
+| Day 24/04     |           |    |           |       :neutral_face:          |      |
+| Day 25/04     |           |    |           |       :smiley:          |      |
+| Day 26/04     |           |    |           |       :worried:          |      |
 ...
