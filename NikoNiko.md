@@ -25,5 +25,5 @@
 | Day 24/04     |  :smiley:    |:neutral_face: |           |       :neutral_face:          |   :smiley:   |
 | Day 25/04     |  :neutral_face:        |:neutral_face: |           |       :smiley:          |   :smiley:   |
 | Day 26/04     |  :neutral_face:      |:neutral_face: |           |       :worried:          |   :neutral_face:   |
-| Day 27/04     |  :neutral_face:      |:neutral_face: |           |             |   :smiley:   |
+| Day 27/04     |  :neutral_face:      |:neutral_face: |           |     :smiley:        |   :smiley:   |
 ...
