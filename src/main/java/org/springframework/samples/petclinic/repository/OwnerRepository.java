@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.repository;
 
 import java.util.Collection;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -61,8 +62,7 @@ public interface OwnerRepository extends CrudRepository<Owner, Integer> {
 	//TODO void save(Owner owner);
 	void delete(Owner owner);
 	void deleteById(@Param("id") int id);
-
-	@Query("SELECT o FROM Owner o WHERE o.user.username = ?1")
-	public Owner findOwnerByUsername(String username);
+	
+	public Owner findOwnerByUserUsername(@Param("username") String username) throws DataAccessException;
 
 }
