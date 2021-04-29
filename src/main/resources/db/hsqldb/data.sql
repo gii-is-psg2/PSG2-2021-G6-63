@@ -92,6 +92,4 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO adoptions(id,accepted,description,adoptant_id, original_owner_id, pet_id) VALUES (14, false, 'Me gustaria adoptarlo porque me gustan mucho los animales y quiero otro', 2, 5, 6);
-
 --INSERT INTO rooms(id, room_number) VALUES (1, 1);
