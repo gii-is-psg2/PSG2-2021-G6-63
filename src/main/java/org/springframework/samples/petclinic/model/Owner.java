@@ -30,6 +30,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
@@ -67,6 +68,9 @@ public class Owner extends Person {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username")
 	private User user;
+	
+	@OneToOne
+	private Adoption adoption;
 	//
 	
 	public String getAddress() {
@@ -165,6 +169,14 @@ public class Owner extends Person {
 			}
 		}
 		return null;
+	}
+
+	public Adoption getAdoption() {
+		return adoption;
+	}
+
+	public void setAdoption(Adoption adoption) {
+		this.adoption = adoption;
 	}
 
 	@Override

@@ -26,7 +26,9 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -55,6 +57,11 @@ public class Pet extends NamedEntity {
 	@JoinColumn(name = "type_id")
 	private PetType type;
 
+	private Boolean isInAdoption = false;
+	
+	@OneToOne
+	private Adoption adoption;
+
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
 	private Owner owner;
@@ -64,6 +71,7 @@ public class Pet extends NamedEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
 	private Set<Booking> bookings;
+	
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -85,7 +93,7 @@ public class Pet extends NamedEntity {
 		return this.owner;
 	}
 
-	protected void setOwner(Owner owner) {
+	public void setOwner(Owner owner) {
 		this.owner = owner;
 	}
 
@@ -112,6 +120,14 @@ public class Pet extends NamedEntity {
 		this.bookings = bookings;
 	}
 
+	public Boolean getIsInAdoption() {
+		return isInAdoption;
+	}
+
+	public void setIsInAdoption(Boolean isInAdoption) {
+		this.isInAdoption = isInAdoption;
+	}
+
 	public List<Visit> getVisits() {
 		List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
 		PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
@@ -122,6 +138,14 @@ public class Pet extends NamedEntity {
 		List<Booking> sortedVisits = new ArrayList<>(getBookingsInternal());
 		PropertyComparator.sort(sortedVisits, new MutableSortDefinition("checkIn", false, false));
 		return Collections.unmodifiableList(sortedVisits);
+	}
+
+	public Adoption getAdoption() {
+		return adoption;
+	}
+
+	public void setAdoption(Adoption adoption) {
+		this.adoption = adoption;
 	}
 
 	public void addVisit(Visit visit) {

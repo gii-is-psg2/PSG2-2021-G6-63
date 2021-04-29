@@ -16,16 +16,20 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.model.Booking;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.repository.AdoptionRepository;
 import org.springframework.samples.petclinic.repository.BookingRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
@@ -51,14 +55,17 @@ public class PetService {
 	
 	private BookingRepository bookingRepository;
 	
+	private AdoptionRepository adoptionRepository;
+	
 	//private RoomRepository roomRepository;
 	
 	@Autowired
 	public PetService(PetRepository petRepository,
-			VisitRepository visitRepository, BookingRepository bookingRepository) {
+			VisitRepository visitRepository, BookingRepository bookingRepository, AdoptionRepository adoptionRepository) {
 		this.petRepository = petRepository;
 		this.visitRepository = visitRepository;
 		this.bookingRepository = bookingRepository;
+		this.adoptionRepository = adoptionRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -119,4 +126,31 @@ public class PetService {
         this.petRepository.delete(pet);
     }
 
+    @Transactional(readOnly = true)
+	public List<Pet> findPetsInAdoption() {
+		return this.petRepository.findPetsInAdoption();
+	}
+    
+    @Transactional
+    public void saveAdoption(@Valid Adoption adoption) {
+    	this.adoptionRepository.save(adoption);
+    }
+
+    @Transactional(readOnly = true)
+	public List<Adoption> findAdoptionsByOwnerId(Integer id) {
+		// TODO Auto-generated method stub
+		return this.adoptionRepository.findAdoptionsByOwnerId(id);
+	}
+
+    @Transactional(readOnly = true)
+	public Adoption findAdoptionById(int adoptionId) {
+		// TODO Auto-generated method stub
+		return this.adoptionRepository.findAdoptionsById(adoptionId);
+	}
+
+    @Transactional
+	public void deleteAdoption(Adoption adoption) throws DataAccessException{
+		this.adoptionRepository.delete(adoption);
+		
+	}
 }

@@ -57,6 +57,9 @@ public interface PetRepository extends CrudRepository<Pet, Integer> {
 	
     void delete(Pet pet);
 
+    @Query("SELECT p FROM Pet p WHERE p.isInAdoption = TRUE")
+	List<Pet> findPetsInAdoption();
+
 	
 
 }
