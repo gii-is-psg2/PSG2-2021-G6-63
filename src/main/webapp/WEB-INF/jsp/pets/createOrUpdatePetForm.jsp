@@ -31,6 +31,8 @@
                 <petclinic:inputField label="Fecha de nacimiento" name="birthDate"/>
                 <div class="control-group">
                 <petclinic:selectField name="type" label="Tipo " names="${types}" size="5"/>
+                 <form:checkbox path="isInAdoption" label="Esta en adopcion"/>
+                
                 </div>
             </div>
             <div class="form-group">
