@@ -15,20 +15,27 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Adoption;
 import org.springframework.samples.petclinic.model.Booking;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.repository.AdoptionRepository;
 import org.springframework.samples.petclinic.repository.BookingRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.samples.petclinic.service.exceptions.ConcurrentBookingsException;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,14 +58,17 @@ public class PetService {
 	
 	private BookingRepository bookingRepository;
 	
+	private AdoptionRepository adoptionRepository;
+	
 	//private RoomRepository roomRepository;
 	
 	@Autowired
 	public PetService(PetRepository petRepository,
-			VisitRepository visitRepository, BookingRepository bookingRepository) {
+			VisitRepository visitRepository, BookingRepository bookingRepository, AdoptionRepository adoptionRepository) {
 		this.petRepository = petRepository;
 		this.visitRepository = visitRepository;
 		this.bookingRepository = bookingRepository;
+		this.adoptionRepository = adoptionRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -72,8 +82,36 @@ public class PetService {
 	}
 	
     @Transactional
-	public void saveBooking(@Valid Booking booking) throws DataAccessException {
-		bookingRepository.save(booking);
+	public void saveBooking(@Valid Booking booking) throws DataAccessException, ConcurrentBookingsException {
+    	LocalDate checkIn = booking.getCheckIn();
+    	LocalDate checkOut = booking.getCheckOut();
+    	
+    	Pet pet = petRepository.findById(booking.getPet().getId()).get();
+    	List<Booking> listaBookings = pet.getBookings().stream().filter(x -> x.getCheckIn().isAfter(LocalDate.now())).collect(Collectors.toList());
+    	for(Booking b:listaBookings) {
+    		LocalDate in = b.getCheckIn();
+    		LocalDate out = b.getCheckOut();
+    		
+    		//in y out están dentro del rango de la reserva
+    		if((checkIn.isAfter(in) && checkIn.isBefore(out)) ||		//  in  [CIN    out  
+    			checkOut.isAfter(in) && checkOut.isBefore(out) ||		//	in	COUT]	out
+    			checkIn.isBefore(in) && checkOut.isAfter(out)||			//	[CIN  in	out	COUT]    			
+    			checkIn.isEqual(in) ||
+    			checkIn.isEqual(out) ||
+    			checkOut.isEqual(in) ||
+    			checkOut.isEqual(out)) {
+    			
+    			throw new ConcurrentBookingsException();
+    		
+    		} else {
+    			bookingRepository.save(booking);
+    		}
+    		
+    		
+    		
+    	}
+    	
+    		
 	}
 
 	@Transactional(readOnly = true)
@@ -119,4 +157,31 @@ public class PetService {
         this.petRepository.delete(pet);
     }
 
+    @Transactional(readOnly = true)
+	public List<Pet> findPetsInAdoption() {
+		return this.petRepository.findPetsInAdoption();
+	}
+    
+    @Transactional
+    public void saveAdoption(@Valid Adoption adoption) {
+    	this.adoptionRepository.save(adoption);
+    }
+
+    @Transactional(readOnly = true)
+	public List<Adoption> findAdoptionsByOwnerId(Integer id) {
+		// TODO Auto-generated method stub
+		return this.adoptionRepository.findAdoptionsByOwnerId(id);
+	}
+
+    @Transactional(readOnly = true)
+	public Adoption findAdoptionById(int adoptionId) {
+		// TODO Auto-generated method stub
+		return this.adoptionRepository.findAdoptionsById(adoptionId);
+	}
+
+    @Transactional
+	public void deleteAdoption(Adoption adoption) throws DataAccessException{
+		this.adoptionRepository.delete(adoption);
+		
+	}
 }

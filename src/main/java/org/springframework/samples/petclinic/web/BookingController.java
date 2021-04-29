@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Booking;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.exceptions.ConcurrentBookingsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -30,10 +31,10 @@ public class BookingController {
 		this.petService = petService;
 	}
 	
-	@InitBinder
-	public void setAllowedFields(WebDataBinder dataBinder) {
-		dataBinder.setDisallowedFields("id");
-	}
+//	@InitBinder
+//	public void setAllowedFields(WebDataBinder dataBinder) {
+//		dataBinder.setDisallowedFields("id");
+//	}
 	
 	@ModelAttribute("booking")
 	public Booking loadPetWithBooking(@PathVariable("petId") int petId) {
@@ -52,7 +53,11 @@ public class BookingController {
     	if(result.hasErrors()) {
     		return "booking/formNewBooking";
     	} else {
-    		this.petService.saveBooking(booking);
+    		try {
+        		this.petService.saveBooking(booking);    			
+    		} catch(ConcurrentBookingsException c){
+    			result.rejectValue("checkIn", "concurrent", "Fecha no valida");
+    		}
     		return "redirect:/owners/{ownerId}";
     	}
     }
