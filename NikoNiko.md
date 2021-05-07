@@ -28,4 +28,18 @@
 | Day 27/04     |  :neutral_face:      |:neutral_face: |  :neutral_face:         |     :smiley:        |   :smiley:   |
 | Day 28/04     |  :neutral_face:      |:neutral_face: |  :neutral_face:         |     :smiley:        |   :smiley:   |
 | Day 29/04     |  :neutral_face:      |:worried:       |  :neutral_face:     |      :worried:   |     :sleeping:    |
+| Day 29/04     |    :smiley:   |      |     |        |       |
+| Day 03/05     |  :smiley:     |      |     |        |       |
+| Day 04/05     |  :smiley:     |      |     |        |       |
+| Day 05/05     | :smiley:      |      |     |        |       |
+| Day 06/05     |  :smiley:     |      |     |        |       |
+| Day 07/05     |  :neutral_face:    |      |     |        |       |
+| Day 10/05     |      |      |     |        |       |
+| Day 11/05     |      |      |     |        |       |
+| Day 12/05     |      |      |     |        |       |
+| Day 13/05     |      |      |     |        |       |
+| Day 14/05     |      |      |     |        |       |
+| Day 25/05     |      |      |     |        |       |
+
+
 ...
