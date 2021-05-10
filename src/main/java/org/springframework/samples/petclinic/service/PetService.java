@@ -81,38 +81,6 @@ public class PetService {
 		visitRepository.save(visit);
 	}
 	
-    @Transactional
-	public void saveBooking(@Valid Booking booking) throws DataAccessException, ConcurrentBookingsException {
-    	LocalDate checkIn = booking.getCheckIn();
-    	LocalDate checkOut = booking.getCheckOut();
-    	
-    	Pet pet = petRepository.findById(booking.getPet().getId()).get();
-    	List<Booking> listaBookings = pet.getBookings().stream().filter(x -> x.getCheckIn().isAfter(LocalDate.now())).collect(Collectors.toList());
-    	for(Booking b:listaBookings) {
-    		LocalDate in = b.getCheckIn();
-    		LocalDate out = b.getCheckOut();
-    		
-    		//in y out están dentro del rango de la reserva
-    		if((checkIn.isAfter(in) && checkIn.isBefore(out)) ||		//  in  [CIN    out  
-    			checkOut.isAfter(in) && checkOut.isBefore(out) ||		//	in	COUT]	out
-    			checkIn.isBefore(in) && checkOut.isAfter(out)||			//	[CIN  in	out	COUT]    			
-    			checkIn.isEqual(in) ||
-    			checkIn.isEqual(out) ||
-    			checkOut.isEqual(in) ||
-    			checkOut.isEqual(out)) {
-    			
-    			throw new ConcurrentBookingsException();
-    		
-    		} else {
-    			bookingRepository.save(booking);
-    		}
-    		
-    		
-    		
-    	}
-    	
-    		
-	}
 
 	@Transactional(readOnly = true)
 	public Pet findPetById(int id) throws DataAccessException {
@@ -169,13 +137,11 @@ public class PetService {
 
     @Transactional(readOnly = true)
 	public List<Adoption> findAdoptionsByOwnerId(Integer id) {
-		// TODO Auto-generated method stub
 		return this.adoptionRepository.findAdoptionsByOwnerId(id);
 	}
 
     @Transactional(readOnly = true)
 	public Adoption findAdoptionById(int adoptionId) {
-		// TODO Auto-generated method stub
 		return this.adoptionRepository.findAdoptionsById(adoptionId);
 	}
 
@@ -183,5 +149,40 @@ public class PetService {
 	public void deleteAdoption(Adoption adoption) throws DataAccessException{
 		this.adoptionRepository.delete(adoption);
 		
+	}
+
+	public void saveBooking(@Valid Booking booking) throws ConcurrentBookingsException { 
+		
+    	LocalDate checkIn = booking.getCheckIn();
+    	LocalDate checkOut = booking.getCheckOut();
+    	
+    	Pet pet = petRepository.findById(booking.getPet().getId()).get();
+    	List<Booking> listaBookings = bookingRepository.findByPetId(pet.getId());
+    	if(listaBookings.isEmpty()) {
+    		bookingRepository.save(booking);
+    	}else {
+    		for(Booking b: listaBookings) {
+        		LocalDate in = b.getCheckIn();
+        		LocalDate out = b.getCheckOut();
+        		
+        		//in y out están dentro del rango de la reserva
+        		if((checkIn.isAfter(in) && checkIn.isBefore(out)) ||		//  in  [CIN    out  
+        			checkOut.isAfter(in) && checkOut.isBefore(out) ||		//	in	COUT]	out
+        			checkIn.isBefore(in) && checkOut.isAfter(out)||			//	[CIN  in	out	COUT]    			
+        			checkIn.isEqual(in) ||
+        			checkIn.isEqual(out) ||
+        			checkOut.isEqual(in) ||
+        			checkOut.isEqual(out) ||
+        			checkIn.isAfter(checkOut)) {
+        			
+        			throw new ConcurrentBookingsException();
+        		
+        		} else {
+        			bookingRepository.save(booking);
+        		}
+    	}
+    	
+    	
+    	}
 	}
 }
