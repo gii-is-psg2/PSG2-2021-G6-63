@@ -33,7 +33,7 @@
 | Day 05/05     | :smiley:      |      |     |        |       |
 | Day 06/05     |  :smiley:     |      |     |        |       |
 | Day 07/05     |  :neutral_face:    |      |     |        |       |
-| Day 10/05     |      |      |     |        |       |
+| Day 10/05     |   :smiley:   |      |     |        |       |
 | Day 11/05     |      |      |     |        |       |
 | Day 12/05     |      |      |     |        |       |
 | Day 13/05     |      |      |     |        |       |
