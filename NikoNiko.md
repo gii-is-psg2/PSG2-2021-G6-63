@@ -34,9 +34,9 @@
 | Day 06/05     |  :smiley:     |      |     |        |    :smiley:   |
 | Day 07/05     |  :neutral_face:    |      |     |        |   :smiley:    |
 | Day 10/05     |   :smiley:   |      |     |        |   :smiley:    |
-| Day 11/05     |      |      |     |        |   :smiley:    |
-| Day 12/05     |      |      |     |        |    :smiley:   |
-| Day 13/05     |      |      |     |        |   :smiley:   |
+| Day 11/05     |    :smiley:   |      |     |        |   :smiley:    |
+| Day 12/05     |   :smiley:    |      |     |        |    :smiley:   |
+| Day 13/05     | :neutral_face:     |      |     |        |   :smiley:   |
 | Day 14/05     |      |      |     |        |      |
 | Day 15/05     |      |      |     |        |      |
 
