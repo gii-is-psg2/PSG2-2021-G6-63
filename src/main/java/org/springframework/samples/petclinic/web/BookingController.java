@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -12,9 +13,8 @@ import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.ConcurrentBookingsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,9 +56,9 @@ public class BookingController {
     		try {
         		this.petService.saveBooking(booking);    			
     		} catch(ConcurrentBookingsException c){
-    			result.rejectValue("checkIn", "concurrent", "Fecha no valida");
+    			result.rejectValue("checkOut", "duplicate", "Fecha no valida");
     		}
-    		return "redirect:/owners/{ownerId}";
+    		return "redirect:/owners/{ownerId}/pets/{petId}/booking/new";
     	}
     }
     
