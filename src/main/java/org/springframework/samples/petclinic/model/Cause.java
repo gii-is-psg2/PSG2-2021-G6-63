@@ -39,7 +39,7 @@ public class Cause extends BaseEntity{
 	private Set<Donation> donations;
 	
 	public Double getTotalDonations() {
-		return donations.stream().mapToDouble(x -> x.getQuantity()).sum();
+		return donations.stream().mapToDouble(Donation::getQuantity).sum();
 	}
 
 	public String getName() {

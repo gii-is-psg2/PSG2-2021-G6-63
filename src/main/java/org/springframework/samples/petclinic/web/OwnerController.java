@@ -71,8 +71,7 @@ public class OwnerController {
 
 	public Owner ownerLogeado(Principal principal) {
 		String username = principal.getName();
-		Owner owner = ownerService.findOwnerByUsername(username);
-		return owner;
+		return ownerService.findOwnerByUsername(username);
 	}
 
 	@InitBinder

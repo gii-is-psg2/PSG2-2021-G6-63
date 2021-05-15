@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,14 +27,17 @@ public class DonationService {
 	@Transactional
 	public void save(Donation donation) throws DataAccessException{
 		donation.setDate(LocalDate.now());
-		
-		Cause cause = causeRepository.findById(donation.getCause().getId()).get();
-		Double totalDonaciones = cause.getTotalDonations();
-		Double target = cause.getBudgetTarget();
-		donationRepository.save(donation);
-		if(totalDonaciones >= target) {
-			cause.setIsClosed(true);
-			causeRepository.save(cause);
+		Optional<Cause> causeOpt = causeRepository.findById(donation.getCause().getId());
+		if(causeOpt.isPresent()) {
+			Cause cause = causeOpt.get();
+			Double totalDonaciones = cause.getTotalDonations();
+			Double target = cause.getBudgetTarget();
+			donationRepository.save(donation);
+			if(totalDonaciones >= target) {
+				cause.setIsClosed(true);
+				causeRepository.save(cause);
+			}
+			
 		}
 	}
 	

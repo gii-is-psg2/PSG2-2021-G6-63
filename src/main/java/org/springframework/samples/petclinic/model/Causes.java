@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Causes {
 	
-	private List<Cause> causes;
+	private List<Cause> listCauses;
 	
 	@XmlElement
 	public List<Cause> getCauseList(){
-		if(causes == null) {
-			causes = new ArrayList<>();
+		if(listCauses == null) {
+			listCauses = new ArrayList<>();
 		}
-		return causes;
+		return listCauses;
 	}
 }
