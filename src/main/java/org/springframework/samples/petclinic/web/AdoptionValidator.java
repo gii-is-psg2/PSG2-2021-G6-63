@@ -8,7 +8,6 @@ public class AdoptionValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		// TODO Auto-generated method stub
 		return Adoption.class.isAssignableFrom(clazz);
 	}
 
