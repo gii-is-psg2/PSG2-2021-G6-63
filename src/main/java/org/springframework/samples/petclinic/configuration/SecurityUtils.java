@@ -1,14 +1,14 @@
 package org.springframework.samples.petclinic.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class SecurityUtils {
+	
+	private SecurityUtils() {
+	}
 		
     public static String getUserName() {
         SecurityContext securityContext = SecurityContextHolder.getContext();

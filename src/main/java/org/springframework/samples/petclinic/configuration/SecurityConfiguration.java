@@ -25,6 +25,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
+	final String admin = "admin";
+	final String owner = "owner";
 
 	@Autowired
 	DataSource dataSource;
@@ -35,12 +38,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/resources/**","/webjars/**","/h2-console/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/","/oups").permitAll()
 				.antMatchers("/users/new").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("admin")
-				.antMatchers("/owners/**").hasAnyAuthority("owner", "admin")
-				.antMatchers("/pets/**").hasAnyAuthority("owner", "admin")
+				.antMatchers("/admin/**").hasAnyAuthority(admin)
+				.antMatchers("/owners/**").hasAnyAuthority(owner, admin)
+				.antMatchers("/pets/**").hasAnyAuthority(owner, admin)
 				.antMatchers("/vets/**").authenticated()
-				.antMatchers("/booking/**").hasAnyAuthority("owner", "admin")
-				.antMatchers("/causes/**").hasAnyAuthority("owner")
+				.antMatchers("/booking/**").hasAnyAuthority(owner, admin)
+				.antMatchers("/causes/**").hasAnyAuthority(owner)
 				.anyRequest().denyAll()
 				.and()
 				 	.formLogin()
@@ -74,8 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {	    
-		PasswordEncoder encoder =  NoOpPasswordEncoder.getInstance();
-	    return encoder;
+	    return NoOpPasswordEncoder.getInstance();
 	}
 	
 }

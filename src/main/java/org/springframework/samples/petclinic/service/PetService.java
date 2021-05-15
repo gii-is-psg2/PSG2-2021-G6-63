@@ -59,9 +59,7 @@ public class PetService {
 	private BookingRepository bookingRepository;
 	
 	private AdoptionRepository adoptionRepository;
-	
-	//private RoomRepository roomRepository;
-	
+		
 	@Autowired
 	public PetService(PetRepository petRepository,
 			VisitRepository visitRepository, BookingRepository bookingRepository, AdoptionRepository adoptionRepository) {
