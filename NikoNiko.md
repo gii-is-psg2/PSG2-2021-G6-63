@@ -41,8 +41,10 @@
 | Day 11/05     |    :smiley:   |:neutral_face: | :neutral_face:    |    :smiley:    |   :smiley:    |
 | Day 12/05     |   :smiley:    |:neutral_face: | :worried:    |      :smiley:  |    :smiley:   |
 | Day 13/05     | :neutral_face:    |:neutral_face: |  :smiley:    |     :smiley:   |   :smiley:   |
-| Day 14/05     |      |      |     |        |      |
-| Day 15/05     |      |      |     |        |      |
+| Day 14/05     |      |  :smiley:          |        |      |
+| Day 15/05     |      |  :smiley:          |        |      |
+| Day 16/05     |      |  :smiley:          |        |      |
+| Day 17/05     |      |:neutral_face: |     |        |      |
 
 
 ...
