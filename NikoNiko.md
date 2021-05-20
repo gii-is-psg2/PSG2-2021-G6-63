@@ -45,9 +45,9 @@
 | Day 15/05     |   :smiley:   |  :smiley:          |        |      |
 | Day 16/05     |   :smiley:   |  :smiley:          |        |      |
 | Day 17/05     |   :smiley:   |:neutral_face: |     |        |      |
-| Day 18/05     |      |  :smiley:               |        |      |
-| Day 19/05     |      |  :smiley:               |        |      |
-| Day 20/05     |      |:neutral_face: |     |        |      |
+| Day 18/05     |   smiley   |  :smiley:               |        |      |
+| Day 19/05     |  smiley    |  :smiley:               |        |      |
+| Day 20/05     |  smiley    |:neutral_face: |     |        |      |
 
 
 ...
