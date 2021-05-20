@@ -41,13 +41,13 @@
 | Day 11/05     |    :smiley:   |:neutral_face: | :neutral_face:    |    :smiley:    |   :smiley:    |
 | Day 12/05     |   :smiley:    |:neutral_face: | :worried:    |      :smiley:  |    :smiley:   |
 | Day 13/05     | :neutral_face:    |:neutral_face: |  :smiley:    |     :smiley:   |   :smiley:   |
-| Day 14/05     |  :smiley:    |  :smiley:          |        |      |
-| Day 15/05     |   :smiley:   |  :smiley:          |        |      |
-| Day 16/05     |   :smiley:   |  :smiley:          |        |      |
-| Day 17/05     |   :smiley:   |:neutral_face: |     |        |      |
-| Day 18/05     |   :smiley:   |  :smiley:               |        |      |
-| Day 19/05     | :smiley:    |  :smiley:               |        |      |
-| Day 20/05     |  :smiley:    |:neutral_face: |     |        |      |
+| Day 14/05     |  :smiley:    |  :smiley:          |     :neutral_face:   |      |
+| Day 15/05     |   :smiley:   |  :smiley:          |     :neutral_face:   |      |
+| Day 16/05     |   :smiley:   |  :smiley:          |     :worried:   |      |
+| Day 17/05     |   :smiley:   |:neutral_face: |     |     :worried:   |      |
+| Day 18/05     |   :smiley:   |  :smiley:               |   :smiley:     |      |
+| Day 19/05     | :smiley:    |  :smiley:               |    :smiley:    |      |
+| Day 20/05     |  :smiley:    |:neutral_face: |     |     :smiley:   |      |
 
 
 ...
