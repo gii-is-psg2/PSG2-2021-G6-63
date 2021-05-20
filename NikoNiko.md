@@ -26,7 +26,7 @@
 | Day 25/04     |  :neutral_face:        |:neutral_face: |  :neutral_face:         |       :smiley:          |   :smiley:   |
 | Day 26/04     |  :neutral_face:      |:neutral_face: | :smiley:          |       :worried:          |   :neutral_face:   |
 | Day 27/04     |  :neutral_face:      |:neutral_face: |  :neutral_face:         |     :smiley:        |   :smiley:   |
-| Day 28/04     |  :neutral_face:      |:neutral_face: |  :neutral_face:         |     :smiley:        |   :smiley:   |
+| Day 28/04     |  :neutral_face:      |:neutral_face: |  :neutral_face:         |     :sob:        |   :sob:   |
 | Day 29/04     |  :neutral_face:      |:worried:       |  :neutral_face:     |      :worried:   |     :sleeping:    |
 | Day 1/05     |  :smiley:      |      :worried:   |:smiley:       |     :smiley:   |    :smiley:  |
 | Day 2/05     |  :smiley:      |      :worried:   |:worried:     |      :neutral_face:   |   :smiley:   |
