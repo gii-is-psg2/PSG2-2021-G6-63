@@ -48,6 +48,6 @@
 | Day 18/05     |   :smiley:   |  :smiley:      | :worried:        |   :smiley:     |   :smiley:   |
 | Day 19/05     | :smiley:    |  :smiley:       | :neutral_face:       |    :smiley:    |   :smiley:   |
 | Day 20/05     |  :smiley:    |:neutral_face: |  :neutral_face:   |     :smiley:   |   :smiley:   |
-
+| Day /05     | :smiley:    |      |       |     |    |
 
 ...
