@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
 <petclinic:layout pageName="owners">
 
@@ -38,13 +39,14 @@
         <spring:param name="ownerId" value="${owner.id}"/>
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default"><fmt:message key="addPet"/></a>
-
     
+    <sec:authorize access="hasAuthority('admin')">
      <spring:url value="{ownerId}/delete" var="deleteUrl">
         <spring:param name="ownerId" value="${owner.id}"/>
     </spring:url>
     <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default"><fmt:message key="deleteOwner"/></a>
-
+	</sec:authorize>
+	
     <br/>
     <br/>
     <br/>
@@ -76,6 +78,7 @@
                             <tr>
                                 <td><petclinic:localDate date="${visit.date}" pattern="yyyy-MM-dd"/></td>
                                 <td><c:out value="${visit.description}"/></td>
+                                
                                  <td>
                                 	<spring:url value="/owners/{ownerId}/pets/{petId}/visits/{visitId}/delete" var="deleteUrl">
                                     	<spring:param name="ownerId" value="${owner.id}"/>
@@ -84,6 +87,7 @@
                                 	</spring:url>
                                 	<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default"><fmt:message key="deleteVisit"/></a>
                                 </td>
+                                
                             </tr>
                         </c:forEach>
                         <tr>
@@ -94,6 +98,7 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(petUrl)}"><fmt:message key="editPet"/></a>
                             </td>
+                            
                              <td>
                                 <spring:url value="/owners/{ownerId}/pets/{petId}/delete" var="deleteUrl">
                                     <spring:param name="ownerId" value="${owner.id}"/>
@@ -101,6 +106,7 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(deleteUrl)}"><fmt:message key="deletePet"/></a>
                             </td>
+       
                             <td>
                                 <spring:url value="/owners/{ownerId}/pets/{petId}/visits/new" var="visitUrl">
                                     <spring:param name="ownerId" value="${owner.id}"/>
