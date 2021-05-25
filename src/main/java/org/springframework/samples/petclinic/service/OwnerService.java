@@ -76,7 +76,7 @@ public class OwnerService {
     
     @Transactional
     public Owner findOwnerByUsername(String username) throws DataAccessException{
-    	return this.ownerRepository.findOwnerByUserUsername(username);
+    	return this.ownerRepository.findOwnerByUsername(username);
     }
 
 	
