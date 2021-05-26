@@ -7,21 +7,30 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+
+
+
 @Entity
 @Table(name = "bookings")
 public class Booking extends BaseEntity{
 	
 	@Column(name = "details")
+	@NotBlank
 	private String details;
 	
 	@Column(name = "checkIn")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@NotNull
 	private LocalDate checkIn;
 	
 	@Column(name = "checkOut")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@NotNull
 	private LocalDate checkOut;
 	
 	@ManyToOne
