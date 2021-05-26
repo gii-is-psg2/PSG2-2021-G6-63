@@ -52,6 +52,8 @@
 | Day 22/05     |  :smiley:  |      |       |   :smiley:   |    |
 | Day 23/05     | :neutral_face:   |      |       |   :smiley:   |    |
 | Day 24/05     | :neutral_face:   |      |       |    :smiley:  |    |
+| Day 25/05     | :worried:   |      |       |    :smiley:  |    |
+| Day 26/05     | :smiley:    |      |       |    :smiley:  |    |
 
 
 ...
