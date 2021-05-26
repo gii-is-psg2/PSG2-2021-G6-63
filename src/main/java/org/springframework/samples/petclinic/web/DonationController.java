@@ -59,7 +59,7 @@ public class DonationController {
 	}
 	
 	@PostMapping(value= {"/causes/{causeId}/donation/new"})
-	public String processNewDonationForm(@Valid Donation donation, @PathVariable("causeId") int causeId, BindingResult result) {
+	public String processNewDonationForm(@PathVariable("causeId") int causeId, @Valid Donation donation,BindingResult result) {
     	if(result.hasErrors()) {
     		return "causes/createDonation";
     	} else {
