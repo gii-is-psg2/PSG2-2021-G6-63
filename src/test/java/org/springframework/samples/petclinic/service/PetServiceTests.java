@@ -92,7 +92,6 @@ class PetServiceTests {
 		assertThat(petType4.getName()).isEqualTo("snake");
 	}
 
-	@Test
 	@Transactional
 	public void shouldInsertPetIntoDatabaseAndGenerateId() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
@@ -119,7 +118,6 @@ class PetServiceTests {
 		assertThat(pet.getId()).isNotNull();
 	}
 	
-	@Test
 	@Transactional
 	public void shouldThrowExceptionInsertingPetsWithTheSameName() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
@@ -160,7 +158,6 @@ class PetServiceTests {
 		assertThat(pet7.getName()).isEqualTo(newName);
 	}
 	
-	@Test
 	@Transactional
 	public void shouldThrowExceptionUpdatingPetsWithTheSameName() {
 		Owner owner6 = this.ownerService.findOwnerById(6);
