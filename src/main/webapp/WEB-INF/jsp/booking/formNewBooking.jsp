@@ -40,7 +40,8 @@
     </table>
     
     <form:form modelAttribute="booking" class="form-horizontal">
-    	<div class="form-group has-feedback">   
+    	<div class="form-group has-feedback">  
+    	<input type="hidden" name="pet" value="${petId}"/> 
     		<petclinic:inputField label="Detalles" name="details"/>
      		<petclinic:inputField label="Fecha de entrada" name="checkIn"/>
      		<petclinic:inputField label="Fecha de salida" name="checkOut"/>
