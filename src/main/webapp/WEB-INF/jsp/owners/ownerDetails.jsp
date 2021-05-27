@@ -115,7 +115,6 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(roomUrl)}"><fmt:message key="bookARoom"/></a>
                             </td>
-                            
                         </tr>
                     </table>
                 </td>
