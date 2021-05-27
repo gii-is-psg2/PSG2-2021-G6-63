@@ -63,5 +63,8 @@ public interface OwnerRepository extends CrudRepository<Owner, Integer> {
 	void deleteById(@Param("id") int id);
 	
 	public Owner findOwnerByUserUsername(@Param("username") String username) throws DataAccessException;
+	
+	@Query("select o from Owner o where o.user.username = ?1")
+	public Owner findOwnerByUsername(String username);
 
 }

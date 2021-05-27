@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.security.Principal;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -22,8 +23,10 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,13 +46,22 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class VisitController {
-	
-	Logger logger = LoggerFactory.getLogger(VisitController.class);
 
+	Logger logger = LoggerFactory.getLogger(VisitController.class);
+	
+	private static final String LIST_OWNERS = "owners/ownersList";
+
+	private final OwnerService ownerService;
 	private final PetService petService;
 
+	public Owner ownerLogeado(Principal principal) {
+		String username = principal.getName();
+		return ownerService.findOwnerByUsername(username);
+	}
+	
 	@Autowired
-	public VisitController(PetService petService) {
+	public VisitController(PetService petService, OwnerService ownerService) {
+		this.ownerService = ownerService;
 		this.petService = petService;
 	}
 
@@ -59,34 +71,49 @@ public class VisitController {
 	}
 
 	/**
-	 * Called before each and every @GetMapping or @PostMapping annotated method. 2 goals:
-	 * - Make sure we always have fresh data - Since we do not use the session scope, make
-	 * sure that Pet object always has an id (Even though id is not part of the form
-	 * fields)
+	 * Called before each and every @GetMapping or @PostMapping annotated method. 2
+	 * goals: - Make sure we always have fresh data - Since we do not use the
+	 * session scope, make sure that Pet object always has an id (Even though id is
+	 * not part of the form fields)
+	 * 
 	 * @param petId
 	 * @return Pet
 	 */
-	@ModelAttribute("visit")
-	public Visit loadPetWithVisit(@PathVariable("petId") int petId) {
-		Pet pet = this.petService.findPetById(petId);
-		Visit visit = new Visit();
-		pet.addVisit(visit);
-		return visit;
-	}
+//	@ModelAttribute("visit")
+//	public Visit loadPetWithVisit(@PathVariable("petId") int petId) {
+//		Pet pet = this.petService.findPetById(petId);
+//		Visit visit = new Visit();
+//		pet.addVisit(visit);
+//		return visit;
+//	}
 
-	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is called
-	@GetMapping(value = "/owners/*/pets/{petId}/visits/new")
-	public String initNewVisitForm(@PathVariable("petId") int petId, Map<String, Object> model) {
+	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is
+	// called
+	@GetMapping(value = "/owners/{ownerId}/pets/{petId}/visits/new")
+	public String initNewVisitForm(@PathVariable("petId") int petId, @PathVariable("ownerId") int ownerId,
+			ModelMap model, Principal principal) {
+		Visit visit = new Visit();
+		visit.setDescription(" ");
+		Owner logeado = ownerLogeado(principal);
+		if(logeado.getId() != ownerId) {
+			model.addAttribute("message", "No tienes permisos para añadir una visita a esta mascota!");
+			return LIST_OWNERS;
+		}
+		Pet pet = this.petService.findPetById(petId);
+		pet.addVisit(visit);
+		model.addAttribute("visit", visit);
 		return "pets/createOrUpdateVisitForm";
 	}
 
-	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is called
+	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is
+	// called
 	@PostMapping(value = "/owners/{ownerId}/pets/{petId}/visits/new")
-	public String processNewVisitForm(@Valid Visit visit, BindingResult result) {
+	public String processNewVisitForm(@Valid Visit visit, @PathVariable("petId") int petId, BindingResult result) {
 		if (result.hasErrors()) {
 			return "pets/createOrUpdateVisitForm";
-		}
-		else {
+		} else {
+			Pet pet = this.petService.findPetById(petId);
+			pet.addVisit(visit);
 			this.petService.saveVisit(visit);
 			return "redirect:/owners/{ownerId}";
 		}
@@ -97,9 +124,10 @@ public class VisitController {
 		model.put("visits", this.petService.findPetById(petId).getVisits());
 		return "visitList";
 	}
-	
+
 	@GetMapping(value = "/owners/{ownerId}/pets/{petId}/visits/{visitId}/delete")
-	public String deleteVisit(@PathVariable int ownerId, @PathVariable int petId, @PathVariable int visitId, ModelMap model) {
+	public String deleteVisit(@PathVariable int ownerId, @PathVariable int petId, @PathVariable int visitId,
+			ModelMap model) {
 		Pet pet = this.petService.findPetById(petId);
 		Visit visit = this.petService.findVisitById(visitId);
 		pet.deleteVisit(visit);
