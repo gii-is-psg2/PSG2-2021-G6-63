@@ -28,12 +28,14 @@
 					<span>Inicio</span>
 				</petclinic:menuItem>
 				
+				<sec:authorize access="isAuthenticated()">
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 					title="find owners">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Buscar dueños</span>
 				</petclinic:menuItem>
-
+				</sec:authorize>
+				
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
 					title="veterinarians">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
@@ -52,7 +54,6 @@
 					<span>Error</span>
 				</petclinic:menuItem> --%>
 				
-				<sec:authorize access="hasAuthority('owner')">
 					<petclinic:menuItem active="${name eq 'causes'}" url="/causes"
 						title="veterinarians">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
@@ -60,7 +61,6 @@
 	  					</svg>
 						<span>Causas</span>
 				</petclinic:menuItem>
-				</sec:authorize>
 				
 			</ul>
 
