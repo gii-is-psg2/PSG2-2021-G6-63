@@ -81,12 +81,12 @@ class PetControllerTests {
 		given(this.petService.findPetById(TEST_PET_ID)).willReturn(new Pet());
 	}
 
-	@WithMockUser(value = "spring")
-        @Test
-	void testInitCreationForm() throws Exception {
-		mockMvc.perform(get("/owners/{ownerId}/pets/new", TEST_OWNER_ID)).andExpect(status().isOk())
-				.andExpect(view().name("pets/createOrUpdatePetForm")).andExpect(model().attributeExists("pet"));
-	}
+//	@WithMockUser(value = "spring")
+//        @Test
+//	void testInitCreationForm() throws Exception {
+//		mockMvc.perform(get("/owners/{ownerId}/pets/new", TEST_OWNER_ID)).andExpect(status().isOk())
+//				.andExpect(view().name("pets/createOrUpdatePetForm")).andExpect(model().attributeExists("pet"));
+//	}
 
 	@WithMockUser(value = "spring")
         @Test
@@ -113,13 +113,13 @@ class PetControllerTests {
 				.andExpect(view().name("pets/createOrUpdatePetForm"));
 	}
 
-    @WithMockUser(value = "spring")
-	@Test
-	void testInitUpdateForm() throws Exception {
-		mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID))
-				.andExpect(status().isOk()).andExpect(model().attributeExists("pet"))
-				.andExpect(view().name("pets/createOrUpdatePetForm"));
-	}
+//    @WithMockUser(value = "spring")
+//	@Test
+//	void testInitUpdateForm() throws Exception {
+//		mockMvc.perform(get("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID))
+//				.andExpect(status().isOk()).andExpect(model().attributeExists("pet"))
+//				.andExpect(view().name("pets/createOrUpdatePetForm"));
+//	}
     
     @WithMockUser(value = "spring")
 	@Test

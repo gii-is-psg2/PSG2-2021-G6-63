@@ -94,11 +94,13 @@ public class VisitController {
 			ModelMap model, Principal principal) {
 		Visit visit = new Visit();
 		visit.setDescription(" ");
-		Owner logeado = ownerLogeado(principal);
-		if(logeado.getId() != ownerId) {
-			model.addAttribute("message", "No tienes permisos para añadir una visita a esta mascota!");
-			return LIST_OWNERS;
-		}
+		if(!principal.getName().equals("admin1")) {
+			Owner logeado = ownerLogeado(principal);
+			if(logeado.getId() != ownerId) {
+				model.addAttribute("message", "No tienes permisos para añadir una visita a esta mascota!");
+				return LIST_OWNERS;
+			}
+		}		
 		Pet pet = this.petService.findPetById(petId);
 		pet.addVisit(visit);
 		model.addAttribute("visit", visit);
@@ -127,7 +129,14 @@ public class VisitController {
 
 	@GetMapping(value = "/owners/{ownerId}/pets/{petId}/visits/{visitId}/delete")
 	public String deleteVisit(@PathVariable int ownerId, @PathVariable int petId, @PathVariable int visitId,
-			ModelMap model) {
+			ModelMap model, Principal principal) {
+		if(!principal.getName().equals("admin1")) {
+			Owner logeado = ownerLogeado(principal);
+			if(logeado.getId() != ownerId) {
+				model.addAttribute("message", "No tienes permisos para eliminar una visita de esta mascota!");
+				return LIST_OWNERS;
+			}
+		}		
 		Pet pet = this.petService.findPetById(petId);
 		Visit visit = this.petService.findVisitById(visitId);
 		pet.deleteVisit(visit);
