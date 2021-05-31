@@ -20,7 +20,7 @@
 | Day 19/04     | :neutral_face:|:neutral_face: |      :smiley:          | :smiley:                |:neutral_face:  |  
 | Day 20/04     |  |:neutral_face: |    :smiley:            |     :neutral_face:           |:neutral_face:  |
 | Day 21/04     |  :smiley:            |:smiley:       |     :smiley:            |     :smiley:            |:worried:       |
-| Day 22/04     |  :neutral_face:           |:neutral_face: | :neutral_face:               |              |  :smiley:   |
+| Day 22/04     |  :neutral_face:           |:neutral_face: | :neutral_face:               |       neutral_face:       |  :smiley:   |
 | Day 23/04     |  :smiley:            |:smiley:       |   :neutral_face:        |       :smiley:          |       :smiley: |
 | Day 24/04     |  :smiley:    |:neutral_face: |   :worried:        |       :neutral_face:          |   :smiley:   |
 | Day 25/04     |  :neutral_face:        |:neutral_face: |  :neutral_face:         |       :smiley:          |   :smiley:   |
@@ -54,11 +54,11 @@
 | Day 24/05     | :neutral_face:   |  :smiley:     | :smiley:      |    :smiley:  |    |
 | Day 25/05     | :worried:   |  :smiley:     |  :smiley:     |    :smiley:  |    |
 | Day 26/05     | :smiley:    |   :neutral_face:    |       |    :smiley:  |    |
-| Day 27/05     |  :smiley:   |  :smiley:     |:neutral_face:  |     |    |
-| Day 28/05     |  :smiley:   |  :smiley:     |:smiley:       |     |    |
-| Day 29/05     | :smiley:    | :smiley:      |:smiley:       |     |    |
-| Day 30/05     | :smiley:    |  :smiley:     |   :smiley:    |     |    |
-| Day 31/05     |    :worried:  |    :neutral_face:   |  :neutral_face:      |     |    |
+| Day 27/05     |  :smiley:   |  :smiley:     |:neutral_face:  |  neutral_face:   |    |
+| Day 28/05     |  :smiley:   |  :smiley:     |:smiley:       |  :smiley:   |    |
+| Day 29/05     | :smiley:    | :smiley:      |:smiley:       |  :smiley:   |    |
+| Day 30/05     | :smiley:    |  :smiley:     |   :smiley:    |    :smiley: |    |
+| Day 31/05     |    :worried:  |    :neutral_face:   |  :neutral_face:      | neutral_face:    |    |
 
 
 ...
