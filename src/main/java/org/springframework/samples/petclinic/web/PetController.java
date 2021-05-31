@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.security.Principal;
 import java.util.Collection;
 import org.springframework.beans.BeanUtils;
 import org.springframework.samples.petclinic.service.OwnerService;
@@ -43,7 +44,9 @@ import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNam
 public class PetController {
 
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
+	private static final String LIST_OWNERS = "owners/ownersList";
 
+	
 	private final PetService petService;
         private final OwnerService ownerService;
 
@@ -53,6 +56,11 @@ public class PetController {
         this.ownerService = ownerService;
 	}
 
+	public Owner ownerLogeado(Principal principal) {
+		String username = principal.getName();
+		return ownerService.findOwnerByUsername(username);
+	}
+	
 	@ModelAttribute("types")
 	public Collection<PetType> populatePetTypes() {
 		return this.petService.findPetTypes();
@@ -84,7 +92,14 @@ public class PetController {
 	}
 
 	@GetMapping(value = "/pets/new")
-	public String initCreationForm(Owner owner, ModelMap model) {
+	public String initCreationForm(Owner owner, ModelMap model, Principal principal) {
+		if(!principal.getName().equals("admin1")) {
+			Owner logeado = ownerLogeado(principal);
+			if(logeado.getId() != owner.getId()) {
+				model.addAttribute("message", "No tienes permisos para añadir una mascota aquí!");
+				return LIST_OWNERS;
+			}
+		}		
 		Pet pet = new Pet();
 		owner.addPet(pet);
 		model.put("pet", pet);
@@ -110,7 +125,14 @@ public class PetController {
 	}
 
 	@GetMapping(value = "/pets/{petId}/edit")
-	public String initUpdateForm(@PathVariable("petId") int petId, ModelMap model) {
+	public String initUpdateForm(@PathVariable("petId") int petId, Owner owner, ModelMap model, Principal principal) {
+		if(!principal.getName().equals("admin1")) {
+			Owner logeado = ownerLogeado(principal);
+			if(logeado.getId() != owner.getId()) {
+				model.addAttribute("message", "No tienes permisos para editar esta mascota!");
+				return LIST_OWNERS;
+			}
+		}		
 		Pet pet = this.petService.findPetById(petId);
 		model.put("pet", pet);
 		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
@@ -145,7 +167,14 @@ public class PetController {
 		}
 	}        
         @GetMapping(value = "/pets/{petId}/delete")
-        public String deletePet(@PathVariable("ownerId") final int ownerId, @PathVariable("petId") final int petId, final ModelMap model) {
+        public String deletePet(@PathVariable("ownerId") final int ownerId, @PathVariable("petId") final int petId, final ModelMap model, Principal principal) {
+        	if(!principal.getName().equals("admin1")) {
+    			Owner logeado = ownerLogeado(principal);
+    			if(logeado.getId() != ownerId) {
+    				model.addAttribute("message", "No tienes permisos para eliminar esta mascota!");
+    				return LIST_OWNERS;
+    			}
+    		}		
             Pet pet = this.petService.findPetById(petId);
             Owner owner = ownerService.findOwnerById(ownerId);
             owner.deletePet(pet);
