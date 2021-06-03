@@ -60,6 +60,8 @@
 | Day 30/05     | :smiley:    |  :smiley:     |   :smiley:    |    :smiley: |    |
 | Day 31/05     |    :worried:  |    :neutral_face:   |  :neutral_face:      | :neutral_face:    |    |
 | Day 01/06    |   :smiley: |      |       |     |    |
+| Day 02/06    |   :smiley: |      |       |     |    |
+| Day 03/06    |   :smiley: |      |       |     |    |
 
 
 ...
